@@ -21,7 +21,7 @@ public class Nardozzatrice {
     }
 
     // Algoritmo di Euclide Esteso per trovare il MCD e i coefficienti x e y
-    private static int[] euclideEstesoIterativo(int a, int b) {
+    private static int[] euclideEsteso(int a, int b) {
         int x0 = 1, y0 = 0; // x0 e y0 sono i coefficienti di a
         int x1 = 0, y1 = 1; // x1 e y1 sono i coefficienti di b
         int r0 = a, r1 = b; // r0 e r1 sono i resti
@@ -48,7 +48,7 @@ public class Nardozzatrice {
 
     // Funzione per risolvere l'equazione diofantea ax + by = c
     public static int[] equazioneDiofantea(int a, int b, int c) {
-        int[] result = euclideEstesoIterativo(a, b);
+        int[] result = euclideEsteso(a, b);
         int MCD = result[0];
 
         // Moltiplicazione dei coefficienti x e y per c / MCD
