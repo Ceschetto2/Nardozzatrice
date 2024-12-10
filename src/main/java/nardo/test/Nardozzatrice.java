@@ -20,11 +20,12 @@ public class Nardozzatrice {
         return MCD;
     }
 
-    // Algoritmo di Euclide Esteso per trovare il MCD e i coefficienti x e y
-    private static int[] euclideEsteso(int a, int b) {
-        int x0 = 1, y0 = 0; // x0 e y0 sono i coefficienti di a
-        int x1 = 0, y1 = 1; // x1 e y1 sono i coefficienti di b
-        int r0 = a, r1 = b; // r0 e r1 sono i resti
+    // Funzione per risolvere l'equazione diofantea ax + by = c
+    public static int[] equazioneDiofantea(int a, int b, int c) {
+        // Variabili per i coefficienti di Bézout
+        int x0 = 1, y0 = 0; // Coefficienti iniziali per a
+        int x1 = 0, y1 = 1; // Coefficienti iniziali per b
+        int r0 = a, r1 = b; // Resti iniziali
 
         while (r1 != 0) {
             int q = r0 / r1; // Quoziente
@@ -42,19 +43,18 @@ public class Nardozzatrice {
             y0 = tempY;
         }
 
-        // Restituisce MCD, x, y
-        return new int[]{r0, x0, y0};
-    }
+        int MCD = r0;
 
-    // Funzione per risolvere l'equazione diofantea ax + by = c
-    public static int[] equazioneDiofantea(int a, int b, int c) {
-        int[] result = euclideEsteso(a, b);
-        int MCD = result[0];
+        // Controllo se c è divisibile per il MCD
+        if (c % MCD != 0) {
+            throw new ArithmeticException("Non esistono soluzioni intere per l'equazione " + a + "x + " + b + "y = " + c);
+        }
 
-        // Moltiplicazione dei coefficienti x e y per c / MCD
-        int x = result[1] * (c / MCD);
-        int y = result[2] * (c / MCD);
+        // Calcolo delle soluzioni scalando i coefficienti di Bézout
+        int x = x0 * (c / MCD);
+        int y = y0 * (c / MCD);
 
         return new int[]{x, y};
     }
+
 }
