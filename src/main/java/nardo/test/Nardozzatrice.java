@@ -2,26 +2,8 @@ package nardo.test;
 
 public class Nardozzatrice {
 
-    public static int massimoComunDivisore(int a, int b) {
+    public static int[] bezoutCoeffAndMCD(int a, int b) {
 
-        //r0 è il primo resto
-        int r0 = b;
-
-        //r1 è il secondo resto
-        int r1 = a % b;
-
-        int MCD = b;
-
-        while (r1 != 0) {
-            MCD = r1;
-            r1 = r0 % r1;
-            r0 = MCD;
-        }
-        return MCD;
-    }
-
-    // Funzione per risolvere l'equazione diofantea ax + by = c
-    public static int[] equazioneDiofantea(int a, int b, int c) {
         // Variabili per i coefficienti di Bézout
         int x0 = 1, y0 = 0; // Coefficienti iniziali per a
         int x1 = 0, y1 = 1; // Coefficienti iniziali per b
@@ -42,8 +24,18 @@ public class Nardozzatrice {
             y1 = y0 - q * y1;
             y0 = tempY;
         }
+        return new int[]{r0, x0,x1};
+    }
 
-        int MCD = r0;
+    // Funzione per risolvere l'equazione diofantea ax + by = c
+    public static int[] equazioneDiofantea(int a, int b, int c) {
+
+
+        int MCD, x0, y0;
+        int[] res = bezoutCoeffAndMCD(a, b);
+        MCD = res[0];
+        x0 = res[1];
+        y0 = res[2];
 
         // Controllo se c è divisibile per il MCD
         if (c % MCD != 0) {
